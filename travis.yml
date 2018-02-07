@@ -1,0 +1,19 @@
+sudo: required
+
+language: bash
+
+services:
+ - docker
+
+before_install:
+ - docker build -t shiny-GIE:dev .
+ - docker -d run -p 9999:3838 shiny-GIE:dev
+
+scripts:
+ - docker ps
+
+ - docker run -i -t shiny-GIE:dev bash -c 'curl http://127.0.0.1:3838'
+
+after_success:
+ - print "Succes"
+
